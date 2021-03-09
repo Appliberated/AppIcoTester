@@ -33,7 +33,7 @@ namespace AppIcoTester
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.openIconFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.chooseIconButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.dragTipLabel = new System.Windows.Forms.Label();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +41,7 @@ namespace AppIcoTester
             this.menuViewTaskbar = new System.Windows.Forms.ToolStripMenuItem();
             this.menuViewNotificationArea = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileNameLabel = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,13 +52,14 @@ namespace AppIcoTester
             // 
             // openIconFileDialog
             // 
-            this.openIconFileDialog.Filter = "\"Windows Icon (*.ico)|*.ico|All files (*.*)|*.*\"";
+            this.openIconFileDialog.Filter = "Windows Icon (*.ICO)|*.ICO|Image Files(*.BMP;*.GIF;*.JPG;*.PNG;*.TIFF)|*.BMP;*.GI" +
+    "F;*.JPG;*.PNG;*.TIFF|All Files (*.*)|*.*";
             // 
             // chooseIconButton
             // 
             this.chooseIconButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.chooseIconButton.AutoSize = true;
-            this.chooseIconButton.Location = new System.Drawing.Point(341, 180);
+            this.chooseIconButton.Location = new System.Drawing.Point(341, 203);
             this.chooseIconButton.Name = "chooseIconButton";
             this.chooseIconButton.Padding = new System.Windows.Forms.Padding(10);
             this.chooseIconButton.Size = new System.Drawing.Size(119, 45);
@@ -66,15 +68,15 @@ namespace AppIcoTester
             this.chooseIconButton.UseVisualStyleBackColor = true;
             this.chooseIconButton.Click += new System.EventHandler(this.ChooseIconButton_Click);
             // 
-            // label1
+            // dragTipLabel
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.Location = new System.Drawing.Point(341, 228);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 43);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "or drag it here";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dragTipLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dragTipLabel.Location = new System.Drawing.Point(341, 251);
+            this.dragTipLabel.Name = "dragTipLabel";
+            this.dragTipLabel.Size = new System.Drawing.Size(119, 40);
+            this.dragTipLabel.TabIndex = 1;
+            this.dragTipLabel.Text = "or drag it here";
+            this.dragTipLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // menuStrip
             // 
@@ -138,13 +140,24 @@ namespace AppIcoTester
             this.menuHelp.Size = new System.Drawing.Size(44, 20);
             this.menuHelp.Text = "&Help";
             // 
+            // fileNameLabel
+            // 
+            this.fileNameLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.fileNameLabel.AutoEllipsis = true;
+            this.fileNameLabel.Location = new System.Drawing.Point(58, 150);
+            this.fileNameLabel.Name = "fileNameLabel";
+            this.fileNameLabel.Size = new System.Drawing.Size(684, 40);
+            this.fileNameLabel.TabIndex = 3;
+            this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.fileNameLabel);
+            this.Controls.Add(this.dragTipLabel);
             this.Controls.Add(this.chooseIconButton);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
@@ -164,7 +177,7 @@ namespace AppIcoTester
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.OpenFileDialog openIconFileDialog;
         private System.Windows.Forms.Button chooseIconButton;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label dragTipLabel;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem menuFile;
         private System.Windows.Forms.ToolStripMenuItem menuView;
@@ -172,6 +185,7 @@ namespace AppIcoTester
         private System.Windows.Forms.ToolStripMenuItem menuViewTaskbar;
         private System.Windows.Forms.ToolStripMenuItem menuViewNotificationArea;
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
+        private System.Windows.Forms.Label fileNameLabel;
     }
 }
 

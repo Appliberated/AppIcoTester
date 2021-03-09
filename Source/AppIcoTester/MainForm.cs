@@ -6,6 +6,8 @@ namespace AppIcoTester
 {
     using System;
     using System.Drawing;
+    using System.IO;
+    using System.Runtime.InteropServices;
     using System.Windows.Forms;
 
     /// <summary>
@@ -20,6 +22,7 @@ namespace AppIcoTester
         {
             this.InitializeComponent();
             this.ResizeRedraw = true;
+            this.notifyIcon.Icon = this.Icon;
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -43,8 +46,35 @@ namespace AppIcoTester
 
         private void LoadIcon(string fileName)
         {
-            this.Icon = new Icon(fileName);
-            this.notifyIcon.Icon = this.Icon;
+            try
+            {
+                switch (Path.GetExtension(fileName).ToUpper())
+                {
+                    case ".ICO":
+                        this.Icon = this.notifyIcon.Icon = new Icon(fileName);
+                        break;
+                    case ".BMP" or ".GIF" or ".JPG" or ".PNG" or ".TIFF":
+                        Bitmap bitmap = (Bitmap)Image.FromFile(fileName);
+                        Icon newIcon = Icon.FromHandle(bitmap.GetHicon());
+                        this.Icon = this.notifyIcon.Icon = newIcon;
+                        PInvoke.DestroyIcon(newIcon.Handle);
+                        break;
+                    default:
+                        this.Icon = this.notifyIcon.Icon = Icon.ExtractAssociatedIcon(fileName);
+                        break;
+                }
+
+                this.fileNameLabel.Text = fileName;
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show(
+                    this,
+                    string.Format(Properties.Resources.IconFileLoadError, fileName),
+                    Application.ProductName,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         // --------------------------------------------------------------------
@@ -104,6 +134,15 @@ namespace AppIcoTester
         private void MenuViewNotificationArea_Click(object sender, EventArgs e)
         {
             this.notifyIcon.Visible = this.menuViewNotificationArea.Checked;
+        }
+
+        /// <summary>
+        /// Required native (WinAPI) methods and structures.
+        /// </summary>
+        private static class PInvoke
+        {
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            public static extern bool DestroyIcon(IntPtr handle);
         }
     }
 }
